@@ -1,0 +1,48 @@
+{% load staticfiles %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <style> 
+    .solid {
+        border-style: solid;
+      }</style>
+    <!-- Required meta tags -->
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
+    <title>Sign up!</title>
+  </head>
+  <body>
+    <form method="POST" action="{% url 'registerSuccess' %}" enctype="multipart/form-data">
+        {% csrf_token %}
+          <div id="info" style="padding-left:0; padding-right: 0;">
+            <br><br><br><br><br>      
+
+            <h1 class="solid" style="height:600px;width:500px;">
+
+            <div>
+              &nbsp&nbsp<lable><strong>ID</strong>&nbsp</lable>
+              <br>&nbsp
+              <input type="text" class="username_input" id="user_id" name="user_id" style="width:190px;height:30px;font-size:20px;" check_result="fail" required>
+            </div>
+            <br>
+
+            <div>
+              &nbsp&nbsp<label><strong>password</strong>&nbsp</label>
+              <br>&nbsp
+              <input type="password" id ="user_pw" name="user_pw"> 
+            </div>
+            <br>
+      
+            <div>
+              &nbsp&nbsp<strong>email</strong>
+              <br>&nbsp&nbsp<input type="email" name="email">
+            </div>
+            <br><br>
+            &nbsp&nbsp<input class="btn btn-primary" type="submit" value="가입하기" style="height:40px; width:190px;">
+      </form>
+    </h1>
+  </body>
+</html>

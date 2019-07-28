@@ -1,0 +1,188 @@
+{% load staticfiles %}
+<html>
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <style>
+        @font-face { 
+            font-family: 'KimNamyun';
+            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/KimNamyun.woff') 
+            format('woff'); 
+            font-weight: normal; 
+            font-style: normal; 
+        }
+
+        * {
+            font-family: 'KimNamyun'; 
+            font-size: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <ul class="nav justify-content-end">
+        {% if id %}
+        <li class="nav-item">
+            <a class="nav-link" href="">{{ user.username }}</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'logout' %}">로그아웃</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'mypage' %}">마이페이지</a>
+      
+      \  </li>
+        {% else %}
+        <li class="nav-item">
+                <a class="nav-link" href="{% url 'signup' %}">회원가입</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'login' %}">로그인</a>
+        </li>
+        {% endif %}
+    </ul>
+    
+
+    <br><br><br>
+    <ul class="nav justify-content-center">
+        <li style="font-size: 50px;">
+            <form class="form-inline" action="#" method="get">
+                <div class="input-group-center">
+                    <img src="{% static 'saisai5.png' %}" width="250" height="100">
+                </div>
+            </form>
+        </li>
+    </ul>
+
+    <div class="row d-flex justify-content-center" style="width:100%">
+        <input class="form-control mr-sm-2 col-4 my-2" id='keyword' name='keyword' type="text" placeholder="Search" aria-label="Search">
+        <button class=" btn btn-outline-success my-2 col-1" id='searchKeyword' name='searchKeyword'>Search</button>
+    </div>
+    <br>    
+    
+
+
+    <nav class="navbar navbar-expand-lg">         
+        <div class="collapse navbar-collapse justify-content-md-center" id="navbarNavDropdown">
+
+            
+            <ul class="navbar-nav">
+                
+                <li class="nav-item">
+                    <a class="nav-link" href="/board/">모든 글 보기</a>
+                </li>
+                
+  
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        테마별
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" href="#">자기계발서</a>
+                        <a class="dropdown-item" href="#">여행</a>
+                        <a class="dropdown-item" href="#">연애</a>
+                    </div>      
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        추천도서
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" href="#">사서</a>
+                        <a class="dropdown-item" href="#">사용자</a>
+                    </div>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        KDC로 보기
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" href="#">000</a>
+                        <a class="dropdown-item" href="#">100</a>
+                        <a class="dropdown-item" href="#">200</a>
+                        <a class="dropdown-item" href="#">300</a>
+                        <a class="dropdown-item" href="#">400</a>
+                        <a class="dropdown-item" href="#">500</a>
+                        <a class="dropdown-item" href="#">600</a>
+                        <a class="dropdown-item" href="#">700</a>
+                        <a class="dropdown-item" href="#">800</a>
+                        <a class="dropdown-item" href="#">900</a>
+                    </div>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="/board/new/">작성하기</a>
+                </li>   
+                   
+            </ul>  
+            
+            
+        </div>
+    </nav>
+    <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">First</th>
+              </tr>
+            </thead>
+            <tbody id="results">
+            </tbody>
+          </table>
+    
+    <div class="alert alert-danger" id='errMsg' role="alert" hidden></div>
+        {% block content %}
+        {% endblock %}
+        <script>
+            $('#searchKeyword').click(function(){
+                keyword = $('#keyword').val();
+                alert(keyword);
+                $.ajax({
+                    url:"{% url 'searchKeyword' %}",
+                    data:{
+                        'keyword':keyword
+                    },
+                    datatype: 'json',
+                    success:function(data){
+                        if(data['overlap'] == 'fail'){
+                            alert('suc');
+                            $('#errMsg').removeAttr('hidden');
+                            $('#errMsg').html('검색 결과가 없습니다.');
+
+                        }else{
+                            var output = '';
+                            $('#errMsg').addAttr('hidden');
+                            
+                            for(var result in data){
+                                output += '<tr>';
+                                output += '     <th scope="row">'+1+'</th>';
+                                output += '     <td>'+result+'</td>';
+                                output += '</tr>';          
+                            }
+                            $('#results').html(output);
+                        }
+                    },
+                    error:function(data){
+                        alert('error');
+                    }
+                })
+            });
+        </script>
+        <br><br><hr>
+        <nav class="navbar justify-content-center">
+            <span class="navbar-text">
+                사서 인증에 대한 문의는 saisaibook0@gmail.com 로 메일 연락 주시기 바랍니다.
+            </span>
+        </nav>
+</nav>
+{%for i in overlap%}
+    {{i.key_name}}
+{%endfor%}
+</body>
+</html>

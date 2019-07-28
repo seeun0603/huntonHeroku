@@ -1,0 +1,1 @@
+web: gunicorn saisai.wsgi --log-file -

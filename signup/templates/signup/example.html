@@ -1,0 +1,81 @@
+{% load staticfiles%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <form method="POST" action="{% url 'registerSuccess' %}" enctype="multipart/form-data">
+        {% csrf_token %}
+
+          <div id="info" style="padding-left:0; padding-right: 0;">
+    
+            <div>
+              <lable>ID</lable>
+              <input type="text" class="username_input" id="user_id" name="user_id" check_result="fail" required>
+              <input type="button" class="id_overlap_button" onclick="id_overlap_check();" value= "중복검사">
+              <img src ="{% static 'image/check.png'  %}" id="id_check_sucess" style="display: none"> 
+            </div>
+      
+            <div>
+              <label>password</label>
+              <input type="password" id ="user_pw" name="user_pw"> 
+            </div>
+      
+            <div>
+              email<input type="email" name="email">
+            </div>
+            <input type='submit' value='가입하기'>
+      </form>
+          
+      <script>
+            function id_overlap_check() {
+              $('.username_input').change(function () {
+                $('#id_check_sucess').hide();
+                $('.id_overlap_button').show();
+                $('.username_input').attr("check_result", "fail");
+              })
+              
+              if ($('.username_input').val() == "") {
+                alert('아이디를 다시입력해주세요!')
+                return;
+              }
+              
+              id_overlap_input = document.querySelector('input[name="user_id"]');
+        
+              $.ajax({
+                url: "{% url 'id_overlap_check' %}",
+                data: {
+                  'user_id': id_overlap_input.value
+                },
+                datatype: 'json',
+                success: function (data) {
+                  console.log(data['overlap']);
+                  if (data['overlap'] == "fail") {
+                    alert("이미 존재하는 아이디 입니다.");
+                    id_overlap_input.focus();
+                    return;
+                  } else {
+                    alert("사용가능한 아이디 입니다.");
+                    $('.username_input').attr("check_result", "success");
+                    $('#id_check_sucess').show();
+                    $('.id_overlap_button').hide();
+                    return;
+                  }
+                  if ($('.username_input').attr("check_result") == "fail"){
+                alert("아이디 중복체크를 해주시기 바랍니다.");
+                $('.username_input').focus();
+                return false;
+                }
+                }
+              });
+            }
+          </script>
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+      </body>
+    </html>

@@ -1,0 +1,27 @@
+{% extends 'main/base.html' %}
+{% block content %}
+{% load staticfiles %}
+<div class="container">
+<div class="board">
+    <span class="board-title">{{board.title}}</span><br>
+    <span class="board-context">{{board.context}}</span><br>
+    <a class="edit" href="{% url 'edit' board.id %}">수정</a>
+    <a class="delete" href="{% url 'delete' board.id %}">삭제</a>
+</div>
+    <div class="comments">
+        <span class= comment>&#10002; 댓글:</span><br><br>
+        {% for comment in board.comments.all %}
+            <p><img src="{% static 'user_icon.png' %}" id="img1" width="20px" height="20px"> {{ comment.contents }}
+            <a href="{% url 'comment_delete' board.id comment.id %}" class="delete">삭제</a></p>
+            <br>
+        {% endfor %}
+    </div>
+    <span class= comment>&#10002; 댓글 쓰기:</span><br>
+    <form action="{% url 'comment_create' board.id %}" method="POST">
+        {% csrf_token %}
+        <p>{{User.username}}</p>
+        <input type="text" name="contents">
+        <button type="submit" class="btn">댓글 쓰기</button>
+    </form>
+</div>   
+{% endblock %}

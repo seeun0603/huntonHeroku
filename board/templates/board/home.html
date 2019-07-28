@@ -1,0 +1,19 @@
+{% extends 'main/base.html' %}
+{% block content %}
+    <br>
+    <center>
+    {%for b in boards%}
+    <li class="list-group-item">
+        {% csrf_token %}
+        <table class="content">
+            <tr>
+                <td id="board_contents" width="10%">{{b.id}}</td>
+                <td id="board_contents" width="30%"><a href="{% url 'detail' b.id%}">{{b.title}}</a></td>    
+                <td id="board_contents" width="20%">{{b.bookName}}</td>
+                <td id="board_contents" width="20%">{{b.author}}</td>
+            </tr>
+        </table>     
+    </li>
+    {% endfor %}
+    </center>
+{% endblock %}
